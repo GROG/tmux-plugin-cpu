@@ -1,6 +1,6 @@
 # tmux-plugin-cpu
 
-This plugin let's you add the CPU usage to the tmux status fields.
+This plugin let's you add the CPU usage to tmux status fields.
 
 
 ### Dependencies
@@ -55,7 +55,7 @@ Clone the repo:
 
 Add this line to the bottom of `.tmux.conf`:
 
-    run-shell ~/clone/path/online_status.tmux
+    run-shell ~/clone/path/cpu.tmux
 
 Reload TMUX environment:
 
