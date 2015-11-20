@@ -23,14 +23,14 @@ d_low_color="#[fg=colour2]"
 d_error_color="#[fg=colour0]#[bg=colour1]"
 
 init_vars() {
-    init_var "pre_color"
-    init_var "post_color"
-    init_var "high_color"
-    init_var "high_percentage"
-    init_var "mid_color"
-    init_var "mid_percentage"
-    init_var "low_color"
-    init_var "error_color"
+    init_var "cpu" "pre_color"
+    init_var "cpu" "post_color"
+    init_var "cpu" "high_color"
+    init_var "cpu" "high_percentage"
+    init_var "cpu" "mid_color"
+    init_var "cpu" "mid_percentage"
+    init_var "cpu" "low_color"
+    init_var "cpu" "error_color"
 }
 
 cpu_percentage() {
