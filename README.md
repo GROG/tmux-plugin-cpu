@@ -29,6 +29,7 @@ The plugin also has some options to change the indicator.
 | `@cpu_mid_percentage` | Value for middle CPU load |  35 |
 | `@cpu_low_color` | Color code prepended for low CPU load | `#[fg=colour2]` |
 | `@cpu_error_color` | Color code prepended for error codes | `#[fg=colour0]#[bg=colour1]` |
+| `@cpu_custom_percentage` | Custom script to get CPU load | / |
 
 Example:
 
@@ -37,6 +38,7 @@ Example:
     set -g @plugin 'GROG/tmux-plugin-cpu'
     set -g @cpu_high_percentage "80"
     set -g @cpu_low_percentage "40"
+    set -g @cpu_custom_percentage "$HOME/.scripts/cpu_percentage.sh"
 
 
 ### Installation with [Tmux Plugin Manager](https://github.com/tmux-plugins/tpm) (recommended)

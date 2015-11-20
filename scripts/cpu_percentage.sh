@@ -12,6 +12,7 @@ mid_color=""
 mid_percentage=""
 low_color=""
 error_color=""
+custom_percentage=""
 
 d_pre_color=""
 d_post_color="#[default]"
@@ -21,6 +22,7 @@ d_mid_color="#[fg=colour3]"
 d_mid_percentage="35"
 d_low_color="#[fg=colour2]"
 d_error_color="#[fg=colour0]#[bg=colour1]"
+d_custom_percentage=""
 
 init_vars() {
     init_var "cpu" "pre_color"
@@ -31,6 +33,7 @@ init_vars() {
     init_var "cpu" "mid_percentage"
     init_var "cpu" "low_color"
     init_var "cpu" "error_color"
+    init_var "cpu" "custom_percentage"
 }
 
 cpu_value() {
@@ -50,6 +53,8 @@ cpu_value() {
         grep 'Cpu(s)' |\
         tail -1 |\
         awk '{printf("%02d\n", 100-$8)}'
+    elif [ -x $custom_percentage ]; then
+        eval $custom_percentage
     fi
 }
 
