@@ -5,7 +5,8 @@ This plugin let's you add the CPU usage to tmux status fields.
 
 ### Dependencies
 
-This plugin needs `top`, `grep`, `tail` and `awk` to be available.
+None.
+
 
 ### Usage
 
@@ -16,7 +17,7 @@ Add one of the available values to your existing `status-left` or
 |-------|-------------|
 | `#{cpu_percentage}` | CPU usage in percent |
 
-The plugin also has some options to change the colors of the indicator.
+The plugin also has some options to change the indicator.
 
 | Value | Description | Default |
 |-------|-------------|---------|

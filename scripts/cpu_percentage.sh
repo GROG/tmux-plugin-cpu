@@ -33,26 +33,37 @@ init_vars() {
     init_var "cpu" "error_color"
 }
 
+cpu_value() {
+    if is_cygwin; then
+        WMIC cpu get LoadPercentage |\
+        grep -Eo '^[0-9]+' |\
+        awk '{printf("%02d\n", $1)}'
+    elif [ -e "/proc/stat" ]; then
+        grep 'cpu ' /proc/stat |\
+        awk '{printf("%02d", ($2+$4)*100/($2+$4+$5))}'
+    elif is_osx; then
+        iostat -w 1 -c 2 -n 1 |\
+        tail -1 |\
+        awk '{printf("%02d", 100-$6)}'
+    elif command_exists "top"; then
+        top -d 0.5 -b -n 2 |\
+        grep 'Cpu(s)' |\
+        tail -1 |\
+        awk '{printf("%02d\n", 100-$8)}'
+    fi
+}
+
 cpu_percentage() {
-    if command_exists "top" &&
-        command_exists "grep" &&
-        command_exists "tail" &&
-        command_exists "awk"; then
-        local cpu_p=$(top -d 0.5 -b -n 2 |\
-                        grep 'Cpu(s)' |\
-                        tail -1 |\
-                        awk '{printf("%02d\n", 100-$8)}')
+    local cpu_p=$(cpu_value)
 
-        if [ "$cpu_p" -gt "$high_percentage" ]; then
-            print_color "high" "$cpu_p"
-        elif [ "$cpu_p" -gt "$mid_percentage" ]; then
-            print_color "mid" "$cpu_p"
-        else
-            print_color "low" "$cpu_p"
-        fi
-
-    else
+    if [ -z "$cpu_p" ]; then
         print_color "error" "EE"
+    elif [ "$cpu_p" -gt "$high_percentage" ]; then
+        print_color "high" "$cpu_p"
+    elif [ "$cpu_p" -gt "$mid_percentage" ]; then
+        print_color "mid" "$cpu_p"
+    else
+        print_color "low" "$cpu_p"
     fi
 }
 
