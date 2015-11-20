@@ -41,18 +41,18 @@ cpu_value() {
         WMIC cpu get LoadPercentage |\
         grep -Eo '^[0-9]+' |\
         awk '{printf("%02d\n", $1)}'
-    elif [ -e "/proc/stat" ]; then
-        grep 'cpu ' /proc/stat |\
-        awk '{printf("%02d", ($2+$4)*100/($2+$4+$5))}'
     elif is_osx; then
         iostat -w 1 -c 2 -n 1 |\
         tail -1 |\
-        awk '{printf("%02d", 100-$6)}'
+        awk '{printf("%02d\n", 100-$6)}'
     elif command_exists "top"; then
         top -d 0.5 -b -n 2 |\
         grep 'Cpu(s)' |\
         tail -1 |\
         awk '{printf("%02d\n", 100-$8)}'
+    elif [ -e "/proc/stat" ]; then
+        grep 'cpu ' /proc/stat |\
+        awk '{printf("%02d\n", ($2+$4)*100/($2+$4+$5))}'
     elif [ -x $custom_percentage ]; then
         eval $custom_percentage
     fi
