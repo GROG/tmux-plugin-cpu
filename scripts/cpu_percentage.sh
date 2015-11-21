@@ -37,7 +37,9 @@ init_vars() {
 }
 
 cpu_value() {
-    if is_cygwin; then
+    if [ -x "$custom_percentage" ]; then
+        eval "$custom_percentage"
+    elif is_cygwin; then
         WMIC cpu get LoadPercentage |\
         grep -Eo '^[0-9]+' |\
         awk '{printf("%02d\n", $1)}'
@@ -53,8 +55,6 @@ cpu_value() {
     elif [ -e "/proc/stat" ]; then
         grep 'cpu ' /proc/stat |\
         awk '{printf("%02d\n", ($2+$4)*100/($2+$4+$5))}'
-    elif [ -x $custom_percentage ]; then
-        eval $custom_percentage
     fi
 }
 
