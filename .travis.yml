@@ -1,6 +1,10 @@
 ---
 language: bash
 
+before_script:
+  - sudo apt-get update
+  - sudo apt-get install tmux
+
 script:
   # Basic syntax check
   - bash ./cpu.tmux
