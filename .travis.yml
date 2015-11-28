@@ -1,0 +1,7 @@
+---
+language: bash
+
+script:
+  # Basic syntax check
+  - bash ./cpu.tmux
+  - bash ./scripts/cpu_percentage.sh
